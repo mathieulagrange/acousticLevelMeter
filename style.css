@@ -1,0 +1,28 @@
+
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+#overlay {
+    width: 100%;
+    position: absolute;
+    background: black;
+    z-index: 10;
+    top: 0px;
+    left: 0px;
+}
+
+#base {
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(red, green); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(red, green); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(red, green); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(red, green); /* Standard syntax (must be last) */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}

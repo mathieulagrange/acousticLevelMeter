@@ -1,0 +1,24 @@
+<!doctype html>
+<html ng-app="acousticLevel">
+
+  <head>
+    <meta charset="utf-8" /> 
+    <title>Acoustic Level</title>
+    <script src="angular.min.js"></script>
+    <script src="utils.js"></script>
+    <script src="app.js"></script>
+    <script src="levelController.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+  </head>
+
+  <body>
+    <div class="page" ng-controller="levelController">
+      <div id="overlay" ng-style="{height:(100*level)+'%'}" >
+
+      </div>
+      <div id="base">
+	
+      </div>
+    </div>
+  </body>
+</html>
