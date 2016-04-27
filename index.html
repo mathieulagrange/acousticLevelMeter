@@ -12,18 +12,18 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <link href='https://fonts.googleapis.com/css?family=Cousine:700' rel='stylesheet' type='text/css'> </head>
 
-  <body id="body" onload="startup()">
+  <body id="body">
     <div class="page" ng-controller="levelController">
       <div id="overlay" ng-style="{height:(100*(1-level))+'%'}" >
       </div>
     
       <div id="base">
 	<div id="sensitivity" ng-style="{opacity: opacity, transition: 'opacity '+(1-opacity)+'s'}">
-	You can set the sensitivity using the top / bottom arrows (left to reset) <br> <br> 
+	You can set the sensitivity using the top / bottom arrows (left to reset) or by vertical swipe <br> <br> 
 	Current sensitivity: {{sensitivity}} 
 	</div>
      	<div id="number">
-	  {{logLevel}} t	  {{move}}
+	  {{logLevel}}
 	</div>	
       </div>
     </div>

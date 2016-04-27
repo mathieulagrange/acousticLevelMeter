@@ -1,40 +1,46 @@
-var lastLocation = 0;
 
-function startup() {
-    var el = document.getElementsByTagName("body")[0];
-    console.log(el);
-    el.addEventListener("touchstart", handleStart, false);
-//    el.addEventListener("touchend", handleEnd, false);
-//    el.addEventListener("touchcancel", handleCancel, false);
-//    el.addEventListener("touchleave", handleLeave, false);
-    el.addEventListener("touchmove", handleMove, false);
-}
-
-function handleStart(evt) {
-    evt.preventDefault();
-    var touches = evt.changedTouches;
-    
-    lastLocation = touches[0].pageY; 
-    $scope.move = 10;
-}
-
-function handleMove(evt) {
-    evt.preventDefault();
-    var touches = evt.changedTouches;
-    
-    $scope.move = touches[0].pageY;
-    $scope.move = 10;
-}
-
-app.controller("levelController", function($scope, $timeout, $interval) {
+app.controller("levelController", function($scope, $timeout, $interval, $window) {
     var audioContext = null;
     var meter = null;
     $scope.sensitivity = 1;
     $scope.opacity = 1;
     $scope.level = 0;
     $scope.move = 0;
-
     
+    var lastLocation = 0;
+    var sensitivity = 1;
+
+    function startup() {
+	var el = document.getElementsByTagName("body")[0];
+	el.addEventListener("touchstart", handleStart, false);
+	el.addEventListener("touchend", handleEnd, false);
+	//    el.addEventListener("touchcancel", handleCancel, false);
+	//    el.addEventListener("touchleave", handleLeave, false);
+	el.addEventListener("touchmove", handleMove, false);
+    }
+    
+    function handleStart(evt) {
+	$scope.opacity = 1;
+	evt.preventDefault();
+	var touches = evt.changedTouches;
+	
+	lastLocation = touches[0].pageY; 
+	sensitivity = $scope.sensitivity;
+    }
+    
+    function handleMove(evt) {
+	$scope.opacity = 1;
+	evt.preventDefault();
+	var touches = evt.changedTouches;
+	console.log((touches[0].pageY - lastLocation)/$window.innerHeight*100);
+	sensitivity = (Math.max(1, sensitivity-(touches[0].pageY - lastLocation)/$window.innerHeight*100));
+	lastLocation = touches[0].pageY; 
+	$scope.sensitivity = Math.ceil(sensitivity);
+    }
+
+    function handleEnd(evt) {
+	$timeout(function(){$scope.opacity = 0;}, 2000);
+    }
 
     document.onkeydown = function(e) {
 	$scope.opacity = 1;
@@ -50,7 +56,8 @@ app.controller("levelController", function($scope, $timeout, $interval) {
 	    $scope.sensitivity = Math.max($scope.sensitivity, 1);
             break;
 	}
-	$timeout(function(){$scope.opacity = 0;}, 5000);
+	// should pop and flush timeouts
+	$timeout(function(){$scope.opacity = 0;}, 2000);
     };
     
     
@@ -109,7 +116,8 @@ app.controller("levelController", function($scope, $timeout, $interval) {
 	$scope.logLevel = Math.max(0, 50+Math.ceil(20*Math.log10($scope.level)));
 	$timeout(function(){update()}, 50);
     }
-    
+
+    startup();
     $timeout(function(){$scope.opacity = 0;}, 5000);
     // update();
 });
