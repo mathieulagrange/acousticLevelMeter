@@ -7,17 +7,20 @@
     <script src="angular.min.js"></script>
     <script src="utils.js"></script>
     <script src="app.js"></script>
+    <script src="volume-meter/volume-meter.js"></script>
     <script src="levelController.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"/>
-  </head>
+    <link href='https://fonts.googleapis.com/css?family=Cousine:700' rel='stylesheet' type='text/css'> </head>
 
   <body>
     <div class="page" ng-controller="levelController">
-      <div id="overlay" ng-style="{height:(100*level)+'%'}" >
-
+      <div id="overlay" ng-style="{height:(100*(1-level))+'%'}" >
       </div>
+    
       <div id="base">
-	
+	<div id="number">
+	  {{logLevel}}
+	</div>	
       </div>
     </div>
   </body>
