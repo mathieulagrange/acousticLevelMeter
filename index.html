@@ -16,13 +16,13 @@
     <div class="page" ng-controller="levelController">
       <div id="overlay" ng-style="{height:(100*(1-level))+'%'}" >
       </div>
-    
-      <div id="base">
-	<div id="sensitivity" ng-style="{opacity: opacity, transition: 'opacity '+(1-opacity)+'s'}">
-	You can set the sensitivity using the top / bottom arrows (left to reset) or by vertical swipe <br> <br> 
+    	<div id="sensitivity" ng-style="{opacity: opacity, transition: 'opacity '+(1-opacity)+'s'}">
+	Set the sensitivity by vertical swipe or top / bottom arrows (left to reset) <br>  <br> 
 	Current sensitivity: {{sensitivity}} 
 	</div>
-     	<div id="number">
+ 
+      <div id="base">
+    	<div id="number">
 	  {{logLevel}}
 	</div>	
       </div>
