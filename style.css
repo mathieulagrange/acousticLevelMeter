@@ -34,6 +34,19 @@
     transform: translateX(-50%);
 }
 
+#sensitivity {
+    font-family: 'Cousine';
+    text-align: center;
+    margin: auto;
+    margin-top: 20px;
+    width: 300px;
+    font-size: 10px;
+    color: white;
+    z-index: 10;
+    position: relative;
+    transition: opacity 2s;
+}
+
 #base {
     background: green; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(red, green); /* For Safari 5.1 to 6.0 */

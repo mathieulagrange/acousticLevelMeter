@@ -14,11 +14,18 @@
 
   <body>
     <div class="page" ng-controller="levelController">
+      <div ng-show="sensitivity.state">
+	{{sensitivity}} toto
+      </div>
       <div id="overlay" ng-style="{height:(100*(1-level))+'%'}" >
       </div>
     
       <div id="base">
-	<div id="number">
+	<div id="sensitivity" ng-style="{opacity: opacity, transition: 'opacity '+(1-opacity)+'s'}">
+	You can set the sensitivity using the top / bottom arrows (left to reset) <br> <br> 
+	Current sensitivity: {{sensitivity}} 
+	</div>
+     	<div id="number">
 	  {{logLevel}}
 	</div>	
       </div>

@@ -2,20 +2,47 @@
 app.controller("levelController", function($scope, $timeout, $interval) {
     var audioContext = null;
     var meter = null;
-    var sensitivity = 1;
+    $scope.sensitivity = 1;
+    $scope.opacity = 1;
+    $scope.level = 0;
+    $scope.move = 0;
+
+    function startup() {
+	var el = document.getElementsByTagName("page")[0];
+	// el.addEventListener("touchstart", handleStart, false);
+	// el.addEventListener("touchend", handleEnd, false);
+	// el.addEventListener("touchcancel", handleCancel, false);
+	// el.addEventListener("touchleave", handleLeave, false);
+	el.addEventListener("touchmove", handleMove, false);
+    }
+
+    function handleMove(evt) {
+	evt.preventDefault();
+	var touches = evt.changedTouches;
+	
+	for (var i=0; i<touches.length; i++) {
+	    var idx = ongoingTouchIndexById(touches[i].identifier);
+
+	    $scope.move = ongoingTouches[idx].pageY-touches[i].pageY;
+	    ongoingTouches.splice(idx, 1, touches[i]);  // mettre à jour la liste des touchers
+	}
+    }
+
     document.onkeydown = function(e) {
+	$scope.opacity = 1;
 	switch (e.keyCode) {
         case 37:
-	    sensitivity = 1;
+	    $scope.sensitivity = 1;
             break;
         case 38:
-            sensitivity += 1;	    
+            $scope.sensitivity += 1;	    
             break;
         case 40:
-            sensitivity -= 1;
-	    sensitivity = Math.max(sensitivity, 1);
+            $scope.sensitivity -= 1;
+	    $scope.sensitivity = Math.max($scope.sensitivity, 1);
             break;
 	}
+	$timeout(function(){$scope.opacity = 0;}, 5000);
     };
     
     
@@ -69,10 +96,12 @@ app.controller("levelController", function($scope, $timeout, $interval) {
     
     
     var update = function(){
-	$scope.level = meter.volume*sensitivity;
+	var alpha = 0.3;
+	$scope.level = $scope.level*alpha+(1-alpha)*meter.volume*$scope.sensitivity;
 	$scope.logLevel = Math.max(0, 50+Math.ceil(20*Math.log10($scope.level)));
 	$timeout(function(){update()}, 50);
     }
     
+    $timeout(function(){$scope.opacity = 0;}, 5000);
    // update();
 });
