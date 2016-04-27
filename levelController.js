@@ -1,3 +1,28 @@
+var lastLocation = 0;
+
+function startup() {
+    var el = document.getElementsByTagName("body")[0];
+    console.log(el);
+    el.addEventListener("touchstart", handleStart, false);
+//    el.addEventListener("touchend", handleEnd, false);
+//    el.addEventListener("touchcancel", handleCancel, false);
+//    el.addEventListener("touchleave", handleLeave, false);
+    el.addEventListener("touchmove", handleMove, false);
+}
+
+function handleStart(evt) {
+    evt.preventDefault();
+    var touches = evt.changedTouches;
+    
+    lastLocation = touches[0].pageY;
+}
+
+function handleMove(evt) {
+    evt.preventDefault();
+    var touches = evt.changedTouches;
+    
+    $scope.move = touches[0].pageY;
+}
 
 app.controller("levelController", function($scope, $timeout, $interval) {
     var audioContext = null;
@@ -7,26 +32,7 @@ app.controller("levelController", function($scope, $timeout, $interval) {
     $scope.level = 0;
     $scope.move = 0;
 
-    function startup() {
-	var el = document.getElementsByTagName("page")[0];
-	// el.addEventListener("touchstart", handleStart, false);
-	// el.addEventListener("touchend", handleEnd, false);
-	// el.addEventListener("touchcancel", handleCancel, false);
-	// el.addEventListener("touchleave", handleLeave, false);
-	el.addEventListener("touchmove", handleMove, false);
-    }
-
-    function handleMove(evt) {
-	evt.preventDefault();
-	var touches = evt.changedTouches;
-	
-	for (var i=0; i<touches.length; i++) {
-	    var idx = ongoingTouchIndexById(touches[i].identifier);
-
-	    $scope.move = ongoingTouches[idx].pageY-touches[i].pageY;
-	    ongoingTouches.splice(idx, 1, touches[i]);  // mettre à jour la liste des touchers
-	}
-    }
+    
 
     document.onkeydown = function(e) {
 	$scope.opacity = 1;
@@ -103,5 +109,5 @@ app.controller("levelController", function($scope, $timeout, $interval) {
     }
     
     $timeout(function(){$scope.opacity = 0;}, 5000);
-   // update();
+    // update();
 });
