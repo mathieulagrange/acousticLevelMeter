@@ -14,7 +14,8 @@ function handleStart(evt) {
     evt.preventDefault();
     var touches = evt.changedTouches;
     
-    lastLocation = touches[0].pageY;
+    lastLocation = touches[0].pageY; 
+    $scope.move = 10;
 }
 
 function handleMove(evt) {
@@ -22,6 +23,7 @@ function handleMove(evt) {
     var touches = evt.changedTouches;
     
     $scope.move = touches[0].pageY;
+    $scope.move = 10;
 }
 
 app.controller("levelController", function($scope, $timeout, $interval) {
