@@ -14,9 +14,6 @@
 
   <body id="body" onload="startup()">
     <div class="page" ng-controller="levelController">
-      <div ng-show="sensitivity.state">
-	{{sensitivity}} toto
-      </div>
       <div id="overlay" ng-style="{height:(100*(1-level))+'%'}" >
       </div>
     
@@ -26,7 +23,7 @@
 	Current sensitivity: {{sensitivity}} 
 	</div>
      	<div id="number">
-	  {{logLevel}} 	  {{move}}
+	  {{logLevel}} t	  {{move}}
 	</div>	
       </div>
     </div>
