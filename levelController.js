@@ -101,10 +101,12 @@ app.controller("levelController", function($scope, $timeout, $interval, $window)
 	// Create an AudioNode from the stream.
 	mediaStreamSource = audioContext.createMediaStreamSource(stream);
 
-	// Create a new volume meter and connect it.
+	// cw version: Create a new volume meter and connect it.
 	meter = createAudioMeter(audioContext);
+	// analyser node version:
+	//	meter = createAnalyserMeter(audioContext);
+
 	mediaStreamSource.connect(meter);
-	
 	// kick off the visual updating
 	update();
     }
@@ -112,6 +114,9 @@ app.controller("levelController", function($scope, $timeout, $interval, $window)
     
     var update = function(){
 	var alpha = 0.3;
+	// analyser node version:
+	//	meter.getVolume();
+	
 	$scope.level = $scope.level*alpha+(1-alpha)*meter.volume*$scope.sensitivity;
 	$scope.logLevel = Math.max(0, 50+Math.ceil(20*Math.log10($scope.level)));
 	$timeout(function(){update()}, 50);
